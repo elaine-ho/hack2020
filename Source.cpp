@@ -19,8 +19,8 @@ int animation_counter = 0;
 
 bool text_showing = false;
 int text_counter = 200;
-const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so cool", "uwu~", "dont give up", "owo~", "qq keep going", "keep fighting", "ur amazing", "u work so hard", "stay strong", "focus!" };
-int text_n = 13;
+const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so cool", "uwu~", "dont give up", "owo~", "qq keep going", "keep fighting", "ur amazing", "u work so hard", "stay strong", "focus!", "pafu pafu" };
+int text_n = 14;
 int text_num;
 
 bool ow = false;
@@ -173,6 +173,8 @@ gboolean btn_press_callback(GtkWidget* btn, GdkEventButton* event, gpointer user
 }
 int main(int argc, char* argv[])
 {
+    srand(time(NULL));
+
     gtk_init(&argc, &argv);
 
     GdkRectangle workarea = { 0 };
