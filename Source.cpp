@@ -19,7 +19,7 @@ int animation_counter = 0;
 
 bool text_showing = false;
 int text_counter = 200;
-const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so cool", "uwu", "dont give up", "owo", "qq keep going", "keep fighting", "ur amazing", "u work so hard", "stay strong", "focus!" };
+const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so cool", "uwu~", "dont give up", "owo~", "qq keep going", "keep fighting", "ur amazing", "u work so hard", "stay strong", "focus!" };
 int text_n = 13;
 int text_num;
 
@@ -34,7 +34,7 @@ gboolean on_draw(GtkWidget* widget, GdkEventExpose* event, gpointer data)
     cairo_t* cr = gdk_drawing_context_get_cairo_context(drawingContext);
 
     if (text_showing) {
-        cairo_set_source_rgb(cr, 230, 230, 230);
+        cairo_set_source_rgb(cr, 1, .75, .78);
         cairo_select_font_face(cr, "Purisa", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
         cairo_set_font_size(cr, 13);
 
