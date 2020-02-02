@@ -19,14 +19,14 @@ int animation_counter = 0;
 
 bool text_showing = false;
 int text_counter = 200;
-const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so cool", "uwu~", "dont give up", "owo~", "qq keep going", "keep fighting", "ur amazing", "u work so hard", "stay strong", "focus!", "pafu pafu" };
-int text_n = 14;
+const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so cool", "uwu~", "dont give up", "owo~", "qq keep going", "keep fighting", "ur amazing", "u work so hard", "stay strong", "focus!", "pafu pafu", "just a bit more", "u can do this", "dont get distracted", "u smart or whatevas", "never surrender", "deep breaths", "relax :)" };
+int text_n = 21;
 int text_num;
 
 bool ow = false;
 int ow_counter = 100;
-const char* ow_text[] = { "ow", ">:(", "ouch", "hmph" };
-int ow_n = 4;
+const char* ow_text[] = { "ow", ">:(", "ouch", "hmph", "grr", "stop" };
+int ow_n = 6;
 int ow_num;
 
 
@@ -186,7 +186,7 @@ int main(int argc, char* argv[])
 
     GtkWindow* window;
     window = (GtkWindow*)gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(window, "i love you");
+    gtk_window_set_title(window, "uwu");
     gtk_window_set_default_size(window, 30, 140);
     gtk_window_set_decorated(window, false);
     g_signal_connect(window, "destroy", gtk_main_quit, NULL);
