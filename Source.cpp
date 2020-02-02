@@ -9,6 +9,7 @@ gboolean on_draw(GtkWidget* widget, GdkEventExpose* event, gpointer data)
     drawingContext = gdk_window_begin_draw_frame(window, cairoRegion);
 
     cairo_t* cr = gdk_drawing_context_get_cairo_context(drawingContext);
+    cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 0.0);
 
     int              w, h;
     cairo_surface_t* image;
@@ -39,8 +40,10 @@ int main(int argc, char* argv[])
 
     GtkWindow* window;
     window = (GtkWindow*)gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_decorated(GTK_WINDOW(window), false);
+    gtk_window_set_default_size(window, 30, 140);
+    gtk_window_set_decorated(window, false);
     g_signal_connect(window, "destroy", gtk_main_quit, NULL);
+    gtk_widget_set_app_paintable((GtkWidget*)window, TRUE);
        
     GtkDrawingArea* drawingArea;
     drawingArea = (GtkDrawingArea*)gtk_drawing_area_new();
