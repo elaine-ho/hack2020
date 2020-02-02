@@ -23,6 +23,12 @@ const char* text[] = { "u got this", "so proud of u", "love you hehe", "ur so co
 int text_n = 13;
 int text_num;
 
+bool ow = false;
+int ow_counter = 100;
+const char* ow_text[] = { "ow", ">:(", "ouch", "hmph" };
+int ow_n = 4;
+int ow_num;
+
 
 gboolean on_draw(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 {
@@ -33,17 +39,23 @@ gboolean on_draw(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 
     cairo_t* cr = gdk_drawing_context_get_cairo_context(drawingContext);
 
-    if (text_showing) {
-        cairo_set_source_rgb(cr, 1, .75, .78);
-        cairo_select_font_face(cr, "Purisa", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-        cairo_set_font_size(cr, 13);
+    cairo_set_source_rgb(cr, 1, .75, .78);
+    cairo_select_font_face(cr, "Purisa", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+    cairo_set_font_size(cr, 13);
 
-        int y_loc = y - 55;
-        int x_loc = x * 2;
+    int y_loc = y - 55;
+    int x_loc = x * 2;
 
+    if (ow) {
+        cairo_move_to(cr, x_loc, y_loc);
+        cairo_show_text(cr, ow_text[ow_num]);
+    }
+    else if (text_showing) {
         cairo_move_to(cr, x_loc, y_loc);
         cairo_show_text(cr, text[text_num]);
     }
+
+
     int              w, h;
     cairo_surface_t* image;
 
@@ -124,25 +136,41 @@ static gboolean time_handler(GtkWidget* widget)
         }
     }
 
-    if (text_showing == false) {
-        if (rand() % 200 == 0) {
-            text_showing = true;
-            text_counter = 200;
-            text_num = rand() % text_n;
+    if (ow) {
+        ow_counter--;
+        if (ow_counter == 0) {
+            ow = false;
         }
     }
     else {
-        text_counter--;
-        if (text_counter == 0) {
-            text_showing = false;
+        if (text_showing == false) {
+            if (rand() % 200 == 0) {
+                text_showing = true;
+                text_counter = 200;
+                text_num = rand() % text_n;
+            }
+        }
+        else {
+            text_counter--;
+            if (text_counter == 0) {
+                text_showing = false;
+            }
         }
     }
-
     gtk_widget_queue_draw(widget);
     return TRUE;
 }
 
-
+gboolean btn_press_callback(GtkWidget* btn, GdkEventButton* event, gpointer userdata)
+{
+    if (event->type == GDK_BUTTON_PRESS && event->button == 3 || event->type == GDK_BUTTON_PRESS && event->button == 1)
+    {
+        ow = true;
+        ow_num = rand() % ow_n;
+        ow_counter = 100;
+    }
+    return FALSE;
+}
 int main(int argc, char* argv[])
 {
     gtk_init(&argc, &argv);
@@ -166,6 +194,8 @@ int main(int argc, char* argv[])
     drawingArea = (GtkDrawingArea*)gtk_drawing_area_new();
     gtk_container_add(GTK_CONTAINER(window), (GtkWidget*)drawingArea);
     g_signal_connect((GtkWidget*)drawingArea, "draw", G_CALLBACK(on_draw), NULL);
+
+    g_signal_connect(window, "button-press-event", G_CALLBACK(btn_press_callback),NULL);
 
 
     gtk_widget_show_all((GtkWidget*)window);
